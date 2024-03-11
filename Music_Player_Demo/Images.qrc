@@ -1,0 +1,43 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/about.png</file>
+        <file>Images/background.png</file>
+        <file>Images/clear.png</file>
+        <file>Images/cloud.png</file>
+        <file>Images/cloud-white.png</file>
+        <file>Images/exit-small-window.png</file>
+        <file>Images/favorite.png</file>
+        <file>Images/favorite-big.png</file>
+        <file>Images/favorite-big-white.png</file>
+        <file>Images/full-screen.png</file>
+        <file>Images/grid.png</file>
+        <file>Images/history.png</file>
+        <file>Images/history-white.png</file>
+        <file>Images/loading.png</file>
+        <file>Images/local.png</file>
+        <file>Images/local-white.png</file>
+        <file>Images/minimize-screen.png</file>
+        <file>Images/music.ico</file>
+        <file>Images/music.png</file>
+        <file>Images/network-error.png</file>
+        <file>Images/next.png</file>
+        <file>Images/pause.png</file>
+        <file>Images/player.jpg</file>
+        <file>Images/play-list.png</file>
+        <file>Images/play-list-white.png</file>
+        <file>Images/power.png</file>
+        <file>Images/previous.png</file>
+        <file>Images/random.png</file>
+        <file>Images/recommend.png</file>
+        <file>Images/recommend-white.png</file>
+        <file>Images/repeat.png</file>
+        <file>Images/search.png</file>
+        <file>Images/single-repeat.png</file>
+        <file>Images/small-screen.png</file>
+        <file>Images/small-screen-white.png</file>
+        <file>Images/small-window.png</file>
+        <file>Images/stop.png</file>
+        <file>Images/video.png</file>
+        <file>Images/video-white.png</file>
+    </qresource>
+</RCC>
