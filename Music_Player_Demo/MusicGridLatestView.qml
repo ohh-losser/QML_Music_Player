@@ -49,6 +49,7 @@ Item{
                     height:30
                     width: parent.width*0.72
                     elide: Qt.ElideRight
+                    color: "white"
                 }
                 Text{
                     anchors{
@@ -61,6 +62,7 @@ Item{
                     height:30
                     width: parent.width*0.72
                     elide: Qt.ElideRight
+                    color: "white"
                 }
 
 
@@ -69,7 +71,7 @@ Item{
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                     onEntered: {
-                        background.color = "#50000000"
+                        background.color = "#55ffffff"
                     }
                     onExited: {
                         background.color = "#00000000"

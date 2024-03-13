@@ -19,6 +19,9 @@ int main(int argc, char *argv[])
 //    QJSEngine engine_;
 //    engine_.globalObject().setProperty("vjson",engine_.newQObject(QJSValue));
 
+    QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/Music_Player_Demo/App.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,

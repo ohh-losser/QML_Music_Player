@@ -16,7 +16,7 @@ RowLayout {
         {icon:"", value:"专辑歌单", qml:"DetailPlayListPageView", menu:false},//单独写一个方法展示页面
     ]
 
-    property int debugIndex: 4
+    property int debugIndex: 0
 
     spacing: 0
 
@@ -25,7 +25,7 @@ RowLayout {
         Layout.preferredWidth:200
         Layout.fillHeight: true
         background: Rectangle {
-            color:"#AA00AAAA"
+            color: "#1000AAAA"
         }
 
         leftPadding: 0
@@ -103,7 +103,7 @@ RowLayout {
                 //delegate 控制了每一项元素如何绘制
                 delegate:menuViewDelegate
                 highlight: Rectangle{
-                    color:"#aa73a7db"
+                    color:"#3073a7ab"
                 }
             }
         }
@@ -116,7 +116,7 @@ RowLayout {
                 height: 50
                 width: 200
 
-                color:"#AA00AAAA"
+                color:"#10000000"
                 RowLayout {
                     anchors.leftMargin: 50
                     anchors.fill: parent
@@ -133,7 +133,7 @@ RowLayout {
                         height:50
                         font.family: appWindow.vFONT_YAHEI
                         font.pointSize: 12
-                        color: "#ffffff"
+                        color: "#eeffffff"
                     }
                 }
 
@@ -144,7 +144,7 @@ RowLayout {
                         color="#aa73a7db"
                     }
                     onExited: {
-                        color="#AA00AAAA"
+                        color="#00000000"
                     }
 
                     onClicked: {
@@ -155,7 +155,7 @@ RowLayout {
                         var loader = pageHomeViewRepeator.itemAt(mmenuViewDelegateItem.ListView.view.currentIndex);
                         loader.visible=true
                         loader.source = qmlList[index].qml + ".qml";
-                        //console.log(qmlList[index].qml)
+                        console.log(qmlList[index].qml)
                     }
                 }
             }

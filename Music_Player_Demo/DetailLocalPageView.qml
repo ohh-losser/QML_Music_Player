@@ -20,6 +20,7 @@ ColumnLayout {
             text:qsTr("本地音乐")
             font.family:appWindow.vFONT_YAHEI
             font.pointSize: 25
+            color: "#eeffffff"
         }
     }
 
@@ -64,7 +65,7 @@ ColumnLayout {
 
     MusicListView{
         id:localListView
-
+        onDeleteItem: deleteLocal(index)
     }
 
     Component.onCompleted: {
@@ -83,6 +84,13 @@ ColumnLayout {
     function saveLocal(list=[]){
         mySetting.setValue("local",list)
         getLocal()
+    }
+
+    function deleteLocal(index){
+       var list =mySetting.value("local",[])
+        if(list.length<index+1)return
+        list.splice(index,1)
+        saveLocal(list)
     }
 
     FileDialog{

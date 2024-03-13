@@ -34,9 +34,17 @@ Rectangle {
     RowLayout {
         anchors.fill: parent
 
-        Item {//占位
+        Item{//占位拖动
             Layout.preferredWidth: parent.width/10
-            Layout.fillWidth:true
+            Layout.fillWidth: true
+            Layout.fillHeight:  true
+            MouseArea{
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton
+                onPressed: layoutHeaderView.setPoint(mouseX,mouseY)
+                onMouseXChanged: layoutHeaderView.moveX(mouseX)
+                onMouseYChanged: layoutHeaderView.moveY(mouseY)
+            }
         }
 
         MusicIconButton {
@@ -81,6 +89,7 @@ Rectangle {
         }
 
         Item {
+            visible: !layoutHeaderView.isSmallWindow
             Layout.preferredWidth: parent.width/2
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -110,6 +119,7 @@ Rectangle {
                 id:slider
                 width:parent.width
                 Layout.fillWidth: true
+
                 height: 25
                 to:sliderTo
                 from:sliderFrom
@@ -163,6 +173,7 @@ Rectangle {
 
         MusicBorderImage{
             //id:musicCover
+            visible: !layoutHeaderView.isSmallWindow
             width: 50
             height: 45
             broderImageSrc: musicCover
@@ -172,15 +183,16 @@ Rectangle {
                 //hoverEnabled: true
 
                 onPressed:{
-                    musicCover.scale=0.85
+                    parent.scale=0.85
                 }
                 onReleased: {
-                    musicCover.scale=1.0
+                    parent.scale=1.0
                 }
 
                 onClicked: {
                     pageDetailView.visible = !pageDetailView.visible
                     pageHomeView.visible = !pageHomeView.visible
+                    appBackground.showDefaultBackground = !appBackground.showDefaultBackground
                 }
             }
         }
@@ -206,9 +218,18 @@ Rectangle {
             }
         }
 
-        Item {
+        Item{
             Layout.preferredWidth: parent.width/10
-            Layout.fillWidth:true
+            Layout.fillWidth: true
+            Layout.fillHeight:  true
+
+            MouseArea{
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton
+                onPressed: layoutHeaderView.setPoint(mouseX,mouseY)
+                onMouseXChanged: layoutHeaderView.moveX(mouseX)
+                onMouseYChanged: layoutHeaderView.moveY(mouseY)
+            }
         }
     }
 
@@ -370,11 +391,11 @@ Rectangle {
         function onReply(reply){
             recommendHttp.onReplySignal.disconnect(onReply)
             var lyric = JSON.parse(reply).lrc.lyric
-            console.log(lyric)
+            //console.log(lyric)
             if(lyric.length<1) return
             var lyrics = (lyric.replace(/\[.*\]/gi,"")).split("\n")
 
-            if(lyrics.length>0) pageDetailView.lyrics = lyrics
+            if(lyrics.length>0) pageDetailView.lyricsList = lyrics
 
             var times = []
             lyric.replace(/\[.*\]/gi,function(match,index){
@@ -401,7 +422,13 @@ Rectangle {
         var item  = playList[index]
         if(!item||!item.id)return
         var history =  historySettings.value("history",[])
-        var i =  history.findIndex(value=>value.id===item.id)
+        var i
+        if(history) {
+            i =  history.findIndex(value=>value.id===item.id)
+        }else {
+            history = []
+        }
+
         if(i>=0){
             history.slice(i,1)
         }
@@ -421,24 +448,45 @@ Rectangle {
     }
 
     function saveFavorite(value={}){
-        console.log("saveFavorite()")
+
         if(!value||!value.id)return
-        var favorite =  favoriteSettings.value("favorite",[])
-        var i =  favorite.findIndex(item=>value.id===item.id)
+        var favorite = []
+        favorite =  favoriteSettings.value("favorite",[])
+        //console.log("saveFavorite() value: " + value +" : "+ favorite)
+        var i
+        if(favorite) {
+            i =  favorite.findIndex(item=>value.id===item.id)
+        }else {
+            favorite = []
+        }
+
         if(i>=0) favorite.splice(i,1)
-        favorite.unshift({
-                            id:value.id+"",
-                            name:value.name+"",
-                            artist:value.artist+"",
-                            url:value.url?value.url:"",
-                            type:value.type?value.type:"",
-                            album:value.album?value.album:"本地音乐"
-                        })
+        if(favorite) {
+            favorite.unshift({
+                                id:value.id+"",
+                                name:value.name+"",
+                                artist:value.artist+"",
+                                url:value.url?value.url:"",
+                                type:value.type?value.type:"",
+                                album:value.album?value.album:"本地音乐"
+                            })
+        }else {
+            favorite.push({
+                                id:value.id+"",
+                                name:value.name+"",
+                                artist:value.artist+"",
+                                url:value.url?value.url:"",
+                                type:value.type?value.type:"",
+                                album:value.album?value.album:"本地音乐"
+                            })
+        }
+
+
         if(favorite.length>500){
             //限制五百条数据
             favorite.pop()
         }
-        console.log("favorite= " + favorite)
+        //console.log("favorite= " + favorite)
         favoriteSettings.setValue("favorite",favorite)
     }
 }

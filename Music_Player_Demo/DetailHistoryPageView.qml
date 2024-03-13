@@ -21,6 +21,7 @@ ColumnLayout {
             text:qsTr("历史记录")
             font.family:appWindow.vFONT_YAHEI
             font.pointSize: 25
+            color: "#eeffffff"
         }
     }
 
@@ -54,7 +55,7 @@ ColumnLayout {
 
     MusicListView{
         id:historyListView
-
+        onDeleteItem: deleteHistory(index)
     }
 
     Component.onCompleted: {
@@ -64,11 +65,24 @@ ColumnLayout {
 
     function getHistory(){
         console.log("getHistory()")
-        historyListView.musicList = historySettings.value("history",[])
+        var tmp = historySettings.value("history",[])
+        if(tmp) {
+            historyListView.musicList = tmp
+        }else {
+            historyListView.musicList = []
+        }
     }
 
     function clearHistory(){
         historySettings.setValue("history",[])
+        getHistory()
+    }
+
+    function deleteHistory(index){
+        var list =historySettings.value("history",[])
+        if(list.length<index+1)return
+        list.splice(index,1)
+        historySettings.setValue("history",list)
         getHistory()
     }
 }

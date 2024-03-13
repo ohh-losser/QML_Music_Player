@@ -13,7 +13,8 @@ ColumnLayout{
     Rectangle{
         width: parent.width
         height: 70
-        color: "#00000000"
+        color: "#eeffffff"
+
 
         Text {
             x:10
@@ -36,7 +37,7 @@ ColumnLayout{
             selectByMouse: true //是否可以选择文本
             selectionColor: "#999999"//选中背景颜色
             placeholderText: qsTr("请输入搜索关键词")
-            color: "#ffffff"
+            color: "#eeffffff"
             background: Rectangle {
                 radius: 4;
                 color: "#00000000"
@@ -62,6 +63,7 @@ ColumnLayout{
     MusicListView{
         id:musicListView
         Layout.topMargin: 10
+        deletable: false
         onLoadMore: function(offset, index) {
             doSearch(offset, index)
         }

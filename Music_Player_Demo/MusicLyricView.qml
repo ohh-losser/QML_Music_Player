@@ -9,6 +9,8 @@ Rectangle {
     property alias lyrics: lyricListView.model
     property alias current: lyricListView.currentIndex
 
+    color: "#00000000"
+
     clip: true
 
     ListView{
@@ -16,9 +18,9 @@ Rectangle {
         anchors.fill: parent
         model:["暂无歌词","LOSER","LOSER"]
         delegate:lyricListViewDalegate
-        highlight: Rectangle{
-            color: "#2073a7db"
-        }
+//        highlight: Rectangle{
+//            color: "#2073a7db"
+//        }
 
         highlightMoveDuration: 0
         highlightResizeDuration: 0
@@ -38,7 +40,7 @@ Rectangle {
             Text{
                 text:modelData
                 anchors.centerIn: parent
-                color:index===lyricListView.currentIndex?"black":"#505050"
+                color:index===lyricListView.currentIndex?"eeffffff":"#aaffffff"
                 font.family: appWindow.vFONT_YAHEI
                 font.pointSize: 12
             }
@@ -52,7 +54,7 @@ Rectangle {
 
             MouseArea{
                 anchors.fill: parent
-                onCanceled: lyricListView.currentIndex = index
+                onClicked: lyricListView.currentIndex = index
             }
         }
     }

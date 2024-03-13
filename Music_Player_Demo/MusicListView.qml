@@ -15,7 +15,11 @@ Frame {
     property int pageSize: 60
     property int currentPage: 0
 
+    property bool deletable: true
+    property bool favoritable: true
+
     signal loadMore(int offset, int index)
+    signal deleteItem(int index)//1
 
     onMusicListChanged:{
         listViewModel.clear()
@@ -49,7 +53,7 @@ Frame {
         }
 
         highlight: Rectangle {
-            color:"black"
+            color:"#20f0f0f0"
         }
         //highlightFollowsCurrentItem: false
         highlightMoveDuration: 0
@@ -99,7 +103,7 @@ Frame {
                         Layout.preferredWidth: parent.width*0.05
                         font.family: appWindow.vFONT_YAHEI
                         font.pointSize: 13
-                        color: "blue"
+                        color: "#eeffffff"
                         elide:Qt.ElideRight
                     }
 
@@ -109,7 +113,7 @@ Frame {
                         Layout.preferredWidth: parent.width*0.4
                         font.family: appWindow.vFONT_YAHEI
                         font.pointSize: 13
-                        color: "blue"
+                        color: "#eeffffff"
                         elide:Qt.ElideRight
                     }
 
@@ -119,7 +123,7 @@ Frame {
                         Layout.preferredWidth: parent.width*0.15
                         font.family: appWindow.vFONT_YAHEI
                         font.pointSize: 13
-                        color: "blue"
+                        color: "#eeffffff"
                         elide:Qt.ElideRight
                     }
 
@@ -129,7 +133,7 @@ Frame {
                         Layout.preferredWidth: parent.width*0.15
                         font.family: appWindow.vFONT_YAHEI
                         font.pointSize: 13
-                        color: "blue"
+                        color: "#eeffffff"
                         elide:Qt.ElideRight
                     }
 
@@ -149,21 +153,30 @@ Frame {
                                 }
                             }
                             MusicIconButton {
+                                visible: favoritable
                                 iconSource: "qrc:/Images/favorite"
                                 iconHeight:16
                                 iconWidth: 16
                                 toolTip: "喜欢"
                                 onClicked: {
-
+                                    layoutBottomView.saveFavorite({
+                                                                                                          id:musicList[index].id,
+                                                                                                          name:musicList[index].name,
+                                                                                                          artist:musicList[index].artist,
+                                                                                                          url:musicList[index].url?musicList[index].url:"",
+                                                                                                          album:musicList[index].album,
+                                                                                                          type:musicList[index].type?musicList[index].type:"0"
+                                                                                                      })
                                 }
                             }
                             MusicIconButton {
+                                visible: deletable
                                 iconSource: "qrc:/Images/clear"
                                 iconHeight:16
                                 iconWidth: 16
                                 toolTip: "删除"
                                 onClicked: {
-
+                                    deleteItem(index)
                                 }
                             }
                         }
@@ -174,7 +187,7 @@ Frame {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onEntered: {
-                    color="black"
+                    color="#20f0f0f0"
                 }
                 onExited: {
                     color="#00000000"
@@ -196,7 +209,7 @@ Frame {
         id:listViewHeader
         Rectangle {
             Layout.fillWidth: true
-            color:"#00AAAA"
+            color:"#3000AAAA"
             height: 45
             width: listView.width
             RowLayout {
@@ -210,7 +223,7 @@ Frame {
                     Layout.preferredWidth: parent.width*0.05
                     font.family: appWindow.vFONT_YAHEI
                     font.pointSize: 13
-                    color: "white"
+                    color: "#eeffffff"
                     elide:Qt.ElideRight
                 }
 
@@ -220,7 +233,7 @@ Frame {
                     Layout.preferredWidth: parent.width*0.4
                     font.family: appWindow.vFONT_YAHEI
                     font.pointSize: 13
-                    color: "white"
+                    color: "#eeffffff"
                     elide:Qt.ElideRight
                 }
 
@@ -230,7 +243,7 @@ Frame {
                     Layout.preferredWidth: parent.width*0.15
                     font.family: appWindow.vFONT_YAHEI
                     font.pointSize: 13
-                    color: "white"
+                    color: "#eeffffff"
                     elide:Qt.ElideRight
                 }
 
@@ -240,7 +253,7 @@ Frame {
                     Layout.preferredWidth: parent.width*0.15
                     font.family: appWindow.vFONT_YAHEI
                     font.pointSize: 13
-                    color: "white"
+                    color: "#eeffffff"
                     elide:Qt.ElideRight
                 }
 
@@ -250,7 +263,7 @@ Frame {
                     Layout.preferredWidth: parent.width*0.15
                     font.family: appWindow.vFONT_YAHEI
                     font.pointSize: 13
-                    color: "white"
+                    color: "#eeffffff"
                     elide:Qt.ElideRight
                 }
             }
@@ -259,7 +272,7 @@ Frame {
 
     Item {
         id: pageButtons
-        visible: musicList.length!==0&&all!==0
+        visible: (musicList.length!==0&&all!==0)
         width:parent.width
         //anchors.bottomMargin: 50
         anchors.top: listView.bottom

@@ -130,7 +130,7 @@ Frame {
                 width: 20
                 height: 5
                 radius: 5
-                color: index===bannerPathView.currentIndex?"balck":"gray"
+                color: index===bannerPathView.currentIndex?"white":"#55ffffff"
                 Behavior on color{
                     ColorAnimation {
                         duration: 200

@@ -39,5 +39,6 @@
         <file>Images/stop.png</file>
         <file>Images/video.png</file>
         <file>Images/video-white.png</file>
+        <file>AppSystemTrayIcon.qml</file>
     </qresource>
 </RCC>

@@ -24,6 +24,7 @@ ColumnLayout {
             text:qsTr(targetType=="10"?"专辑":"歌单")+name
             font.family:appWindow.vFONT_YAHEI
             font.pointSize: 25
+            color: "#eeffffff"
         }
     }
     RowLayout{
@@ -58,7 +59,7 @@ ColumnLayout {
 
     MusicListView {
         id:palyListview
-        //deletable: false
+        deletable: false
     }
 
     function loadAlbum(){

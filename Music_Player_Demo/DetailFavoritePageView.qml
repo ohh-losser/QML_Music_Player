@@ -21,6 +21,7 @@ ColumnLayout {
             text:qsTr("我喜欢的")
             font.family:appWindow.vFONT_YAHEI
             font.pointSize: 25
+            color: "#eeffffff"
         }
     }
 
@@ -54,6 +55,10 @@ ColumnLayout {
 
     MusicListView{
         id:favoriteListView
+        favoritable: false
+        onDeleteItem: function(index) {
+            deleteFavorite(index)
+        }
 
     }
 
@@ -64,11 +69,24 @@ ColumnLayout {
 
     function getFavorite(){
         console.log("getFavorite()")
-        favoriteListView.musicList = favoriteSettings.value("favorite",[])
+        var tmp = favoriteSettings.value("favorite",[])
+        if(tmp) {
+            favoriteListView.musicList = tmp
+        }else {
+            favoriteListView.musicList = []
+        }
     }
 
     function clearFavorite(){
         favoriteSettings.setValue("favorite",[])
-        getHistory()
+        getFavorite()
+    }
+
+    function deleteFavorite(index){
+        var list =favoriteSettings.value("favorite",[])
+        if(list.length<index+1)return
+        list.splice(index,1)
+        favoriteSettings.setValue("favorite",list)
+        getFavorite()
     }
 }

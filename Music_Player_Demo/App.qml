@@ -21,6 +21,12 @@ ApplicationWindow {
     visible: true
     title: qsTr("Music_Player_Demo")
 
+    background: Background {
+        id:appBackground
+    }
+
+    flags: Qt.Windown|Qt.FramelessWindowHint
+
     HttpModul {
         id:recommendHttp
     }
@@ -88,5 +94,9 @@ ApplicationWindow {
                 layoutBottomView.playNext()
             }
         }
+    }
+
+    AppSystemTrayIcon{
+
     }
 }

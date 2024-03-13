@@ -44,6 +44,7 @@ Item{
                     font.family: appWindow.vFONT_YAHEI
                     height:30
                     elide: Qt.ElideMiddle
+                    color: "white"
                 }
 
 

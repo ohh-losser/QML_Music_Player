@@ -4,9 +4,13 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.0 //screen
 
 ToolBar{
+
+    property point point: Qt.point(x, y)
+    property bool isSmallWindow: false
+
     background:Rectangle {
         //透明
-        color: "#00AAAA"
+        color: "#00000000"
     }
 
     width:parent.width
@@ -42,6 +46,10 @@ ToolBar{
                 setWindowSize(330, 660)
                 samllWindow.visible=false
                 exitSmallWindow.visible=true
+                pageHomeView.visible = false
+                pageDetailView.visible = true
+                isSmallWindow = true
+                appBackground.showDefaultBackground = pageHomeView.visible
             }
         }
 
@@ -55,6 +63,8 @@ ToolBar{
                 setWindowSize()
                 samllWindow.visible=true
                 exitSmallWindow.visible=false
+                isSmallWindow = false
+                appBackground.showDefaultBackground = pageHomeView.visible
             }
         }
         Item {
@@ -66,6 +76,14 @@ ToolBar{
                 font.family: appWindow.vFONT_YAHEI
                 font.pointSize: 15
                 color:"#ffffff"
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton
+                onPressed:  setPoint(mouseX,mouseY)
+                onMouseXChanged: moveX(mouseX)
+                onMouseYChanged: moveY(mouseY)
             }
         }
 
@@ -176,6 +194,24 @@ ToolBar{
         appWindow.height = height
         appWindow.x=(Screen.desktopAvailableWidth-appWindow.width)/2
         appWindow.y=(Screen.desktopAvailableHeight-appWindow.height)/2
+    }
+
+    function setPoint(mouseX =0 ,mouseY = 0){
+        point =Qt.point(mouseX,mouseY)//记录初始点
+        console.log(mouseX,mouseY)
+    }
+
+    function moveX(mouseX = 0 ){
+        var x = appWindow.x + mouseX-point.x//窗口x + 鼠标到窗口内的x - 记录的初始点x
+        if(x<-(appWindow.width-70)) x = - (appWindow.width-70)//防止越界
+        if(x>Screen.desktopAvailableWidth-70) x = Screen.desktopAvailableWidth-70
+        appWindow.x = x
+    }
+    function moveY(mouseY = 0 ){
+        var y = appWindow.y + mouseY-point.y
+        if(y<=0) y = 0
+        if(y>Screen.desktopAvailableHeight-70) y = Screen.desktopAvailableHeight-70
+        appWindow.y = y
     }
 
 }

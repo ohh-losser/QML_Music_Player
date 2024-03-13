@@ -20,7 +20,7 @@ QVariant MySetting::value(QString name, QVariant defaultValue)
 {
 
     QSettings _setting(_filename, QSettings::IniFormat);
-    auto ret = _setting.value(name, defaultValue);
+    QVariant ret = _setting.value(name, defaultValue);
     qDebug() << "value() " << name << " " << defaultValue << " " << ret;
     return ret;
 }
