@@ -25,6 +25,7 @@
 音乐搜索使用以下开源API 详细查看在线文档
 
 [网易云音乐 NodeJS 版 API (neteasecloudmusicapi.js.org)](https://neteasecloudmusicapi.js.org/#/)
+windows下运行
 
 ![image-20240314071223426](image-20240314071223426.png)
 
