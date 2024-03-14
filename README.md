@@ -1,5 +1,5 @@
 学习QML写个项目
-—————————————————————————————————————————————————
+————————————————————————————————————————————————
 
 使用Qt Quick QML开发的Windows/linux 一款云音乐播放器程序
 
@@ -25,6 +25,7 @@
 音乐搜索使用以下开源API 详细查看在线文档
 
 [网易云音乐 NodeJS 版 API (neteasecloudmusicapi.js.org)](https://neteasecloudmusicapi.js.org/#/)
+
 windows下运行
 
 ![image-20240314071223426](image-20240314071223426.png)
