@@ -26,7 +26,7 @@
 
 [网易云音乐 NodeJS 版 API (neteasecloudmusicapi.js.org)](https://neteasecloudmusicapi.js.org/#/)
 
-windows下运行
+windows下运行 图片加载失败下载看效果图
 
 ![image-20240314071223426](image-20240314071223426.png)
 
